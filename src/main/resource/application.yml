@@ -1,5 +1,5 @@
-# RabbitMQ
 spring:
+  # RabbitMQ
   rabbitmq:
     username: guest
     password: guest
@@ -13,3 +13,11 @@ spring:
       simple:
         acknowledge-mode: manual
         prefetch: 100
+
+  # mysql
+  datasource:
+    url: jdbc:mysql://localhost:3306/rabbitMQ-Email?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+
