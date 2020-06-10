@@ -13,6 +13,9 @@ spring:
       simple:
         acknowledge-mode: manual
         prefetch: 100
+    # 设置 mandatory 属性，当发送不到对应的交换器的时候，就返回给发送方, false表示丢弃
+    template:
+      mandatory: true
 
   # mysql
   datasource:
