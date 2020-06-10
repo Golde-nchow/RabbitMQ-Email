@@ -52,7 +52,7 @@ public class MessageServiceImpl {
         rabbitTemplate.convertAndSend(
                 RabbitConfig.MAIL_EXCHANGE,
                 RabbitConfig.MAIL_ROUTING_KEY,
-                MessageHelper.objToMsg(message),
+                MessageHelper.objToMsg(mail),
                 correlationData
         );
 
