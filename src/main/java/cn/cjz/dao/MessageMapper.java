@@ -24,6 +24,10 @@ public interface MessageMapper extends Mapper<Message> {
     @Select("SELECT * FROM msg_log WHERE msg_status = 0 AND now() >= next_retry_time")
     List<Message> selectTimeoutMessage();
 
-    @Update("UPDATE msg_log SET msg_retryCount = msg_retryCount + 1 WHERE msg_id = #{id}")
+    /**
+     * 修改重试次数
+     * @param correlationId 消息id
+     */
+    @Update("UPDATE msg_log SET msg_retryCount = msg_retryCount + 1, update_time = now() WHERE msg_id = #{id}")
     void updateRetryCount(@Param("id") String correlationId);
 }
