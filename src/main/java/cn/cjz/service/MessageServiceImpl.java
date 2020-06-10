@@ -5,6 +5,7 @@ import cn.cjz.dao.MessageMapper;
 import cn.cjz.model.Mail;
 import cn.cjz.model.Message;
 import cn.cjz.model.MessageResponse;
+import cn.cjz.mq.MessageHelper;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.json.JSONUtil;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
@@ -48,8 +49,12 @@ public class MessageServiceImpl {
         CorrelationData correlationData = new CorrelationData(msgId);
 
         // 发送消息到rabbitMQ
-        String messageJson = JSONUtil.parseObj(message).toString();
-        rabbitTemplate.convertAndSend(RabbitConfig.MAIL_EXCHANGE, RabbitConfig.MAIL_ROUTING_KEY, messageJson, correlationData);
+        rabbitTemplate.convertAndSend(
+                RabbitConfig.MAIL_EXCHANGE,
+                RabbitConfig.MAIL_ROUTING_KEY,
+                MessageHelper.objToMsg(message),
+                correlationData
+        );
 
         return MessageResponse.success();
     }
