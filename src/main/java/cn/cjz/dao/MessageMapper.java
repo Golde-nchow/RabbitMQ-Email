@@ -1,7 +1,9 @@
 package cn.cjz.dao;
 
 import cn.cjz.model.Message;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -22,4 +24,6 @@ public interface MessageMapper extends Mapper<Message> {
     @Select("SELECT * FROM msg_log WHERE msg_status = 0 AND now() >= next_retry_time")
     List<Message> selectTimeoutMessage();
 
+    @Update("UPDATE msg_log SET msg_retryCount = msg_retryCount + 1 WHERE msg_id = #{id}")
+    void updateRetryCount(@Param("id") String correlationId);
 }
