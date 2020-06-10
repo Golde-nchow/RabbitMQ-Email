@@ -1,5 +1,6 @@
 package cn.cjz.service;
 
+import cn.cjz.config.RabbitConfig;
 import cn.cjz.dao.MessageMapper;
 import cn.cjz.model.Mail;
 import cn.cjz.model.Message;
@@ -22,6 +23,9 @@ public class MessageServiceImpl {
     @Autowired
     private MessageMapper messageMapper;
 
+    /**
+     * 消息入库
+     */
     public String send(Mail mail) {
         String msgId = IdUtil.simpleUUID();
         mail.setMsgId(msgId);
@@ -31,8 +35,8 @@ public class MessageServiceImpl {
                 .builder()
                 .msgId(msgId)
                 .msgContent(JSONUtil.parse(mail).toString())
-                .msgExchange("")
-                .msgRoutingKey("")
+                .msgExchange(RabbitConfig.MAIL_EXCHANGE)
+                .msgRoutingKey(RabbitConfig.MAIL_ROUTING_KEY)
                 .build();
         messageMapper.insertSelective(message);
 
@@ -42,5 +46,18 @@ public class MessageServiceImpl {
         // 发送消息到rabbitMQ
 
         return MessageResponse.success();
+    }
+
+    /**
+     * 修改消息的状态
+     * @param correlationId 消息ID
+     * @param status        消息状态
+     */
+    public void updateStatus(String correlationId, Integer status) {
+        Message message = Message.builder()
+                .msgId(correlationId)
+                .msgStatus(status)
+                .build();
+        messageMapper.updateByPrimaryKeySelective(message);
     }
 }
