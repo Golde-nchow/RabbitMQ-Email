@@ -8,6 +8,7 @@ import cn.cjz.model.MessageResponse;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.json.JSONUtil;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class MessageServiceImpl {
 
     @Autowired
     private MessageMapper messageMapper;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     /**
      * 消息入库
@@ -40,10 +44,12 @@ public class MessageServiceImpl {
                 .build();
         messageMapper.insertSelective(message);
 
-        // 关联id
+        // 该消息关联的id
         CorrelationData correlationData = new CorrelationData(msgId);
 
         // 发送消息到rabbitMQ
+        String messageJson = JSONUtil.parseObj(message).toString();
+        rabbitTemplate.convertAndSend(RabbitConfig.MAIL_EXCHANGE, RabbitConfig.MAIL_ROUTING_KEY, messageJson, correlationData);
 
         return MessageResponse.success();
     }
