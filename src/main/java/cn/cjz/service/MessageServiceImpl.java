@@ -29,6 +29,15 @@ public class MessageServiceImpl {
     private RabbitTemplate rabbitTemplate;
 
     /**
+     * 通过消息的correlationId查询出消息入库的信息
+     * @param correlationId 消息对应的id
+     * @return              数据库的 MessageDto 类
+     */
+    public Message selectById(String correlationId) {
+        return messageMapper.selectByPrimaryKey(correlationId);
+    }
+
+    /**
      * 消息入库
      */
     public String send(Mail mail) {
