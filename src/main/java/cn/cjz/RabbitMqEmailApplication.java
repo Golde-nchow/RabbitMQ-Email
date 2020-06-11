@@ -2,6 +2,7 @@ package cn.cjz;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * @author: Kam-Chou
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version: 1.0
  */
 @SpringBootApplication
+@MapperScan(value = "cn.cjz.dao")
 public class RabbitMqEmailApplication {
 
     public static void main(String[] args) {
