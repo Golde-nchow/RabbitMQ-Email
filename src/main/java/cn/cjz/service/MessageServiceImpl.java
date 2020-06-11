@@ -44,7 +44,7 @@ public class MessageServiceImpl {
     /**
      * 消息入库
      */
-    public String send(Mail mail) {
+    public MessageResponse send(Mail mail) {
         String msgId = IdUtil.simpleUUID();
         mail.setMsgId(msgId);
 
