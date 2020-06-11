@@ -68,6 +68,7 @@ public class RabbitConfig {
     /**
      * 创建邮件队列
      */
+    @Bean
     private Queue mailQueue() {
         return new Queue(MAIL_QUEUE, true);
     }
@@ -75,6 +76,7 @@ public class RabbitConfig {
     /**
      * 创建邮件交换器类, 类型为 direct
      */
+    @Bean
     private DirectExchange mailExchange() {
         return new DirectExchange(MAIL_EXCHANGE, true, false);
     }
@@ -82,6 +84,7 @@ public class RabbitConfig {
     /**
      * 将队列、交换器、路由键进行绑定
      */
+    @Bean
     public Binding mailBinding() {
         return BindingBuilder.bind(mailQueue()).to(mailExchange()).with(MAIL_ROUTING_KEY);
     }
