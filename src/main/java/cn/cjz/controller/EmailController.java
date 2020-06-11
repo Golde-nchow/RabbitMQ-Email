@@ -28,6 +28,11 @@ public class EmailController {
             String msg = errors.getFieldError().getDefaultMessage();
             return MessageResponse.error(msg);
         }
+
+        if (mail != null && mail.getTo() != null) {
+            return MessageResponse.error("请把数据填写完整");
+        }
+
         return messageService.send(mail);
     }
 
