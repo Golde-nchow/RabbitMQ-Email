@@ -69,7 +69,7 @@ public class RabbitConfig {
      * 创建邮件队列
      */
     @Bean
-    private Queue mailQueue() {
+    public Queue mailQueue() {
         return new Queue(MAIL_QUEUE, true);
     }
 
@@ -77,7 +77,7 @@ public class RabbitConfig {
      * 创建邮件交换器类, 类型为 direct
      */
     @Bean
-    private DirectExchange mailExchange() {
+    public DirectExchange mailExchange() {
         return new DirectExchange(MAIL_EXCHANGE, true, false);
     }
 
