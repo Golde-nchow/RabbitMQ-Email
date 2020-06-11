@@ -7,4 +7,4 @@ from = 570384231@qq.com
 # 用户名，默认为发件人邮箱前缀
 user = 570384231@qq.com
 # 密码（注意，某些邮箱需要为SMTP服务单独设置授权码，详情查看相关帮助）
-pass = xzpjrbgotspdbaid
+pass = xx
