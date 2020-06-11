@@ -5,8 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author: Kam-Chou
@@ -23,6 +24,7 @@ public class Message {
     /**
      * 消息唯一标识
      */
+    @Id
     @Column(name = "msg_id")
     private String msgId;
 
