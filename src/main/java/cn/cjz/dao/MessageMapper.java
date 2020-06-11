@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -28,6 +29,6 @@ public interface MessageMapper extends Mapper<Message> {
      * 修改重试次数
      * @param correlationId 消息id
      */
-    @Update("UPDATE msg_log SET msg_retryCount = msg_retryCount + 1, update_time = now() WHERE msg_id = #{id}")
-    void updateRetryCount(@Param("id") String correlationId);
+    @Update("UPDATE msg_log SET msg_retryCount = msg_retryCount + 1, next_retry_time = #{nextTryTime}, update_time = now() WHERE msg_id = #{id}")
+    void updateRetryCount(@Param("id") String correlationId, @Param("nextTryTime") Date nextTryTime);
 }
