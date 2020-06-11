@@ -20,14 +20,22 @@ public class MessageResponse {
 
     private String data;
 
-    public static String success() {
-        MessageResponse success = MessageResponse
+    public static MessageResponse success() {
+        return MessageResponse
                 .builder()
                 .status(1)
                 .message("成功")
                 .data(null)
                 .build();
 
-        return JSONUtil.parse(success).toStringPretty();
+    }
+
+    public static MessageResponse error(String msg) {
+        return MessageResponse
+                .builder()
+                .status(0)
+                .message(msg)
+                .data(null)
+                .build();
     }
 }
