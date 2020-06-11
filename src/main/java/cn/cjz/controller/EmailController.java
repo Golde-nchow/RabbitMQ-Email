@@ -5,6 +5,7 @@ import cn.cjz.model.MessageResponse;
 import cn.cjz.service.MessageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class EmailController {
     @Autowired
     private MessageServiceImpl messageService;
 
-    @RequestMapping("send")
+    @PostMapping("send")
     public MessageResponse send(Mail mail, Errors errors) {
         if (errors.hasErrors()) {
             String msg = errors.getFieldError().getDefaultMessage();
