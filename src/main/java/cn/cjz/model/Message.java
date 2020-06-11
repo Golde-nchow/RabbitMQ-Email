@@ -41,7 +41,7 @@ public class Message {
     /**
      * 路由键
      */
-    @Column(name = "msgRoutingKey")
+    @Column(name = "msg_RoutingKey")
     private String msgRoutingKey;
 
     /**
