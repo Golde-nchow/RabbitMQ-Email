@@ -54,6 +54,7 @@ public class MessageConsumer {
         try {
             // 发送邮件，并对消息进行确认.
             MailUtil.send(mail.getTo(), mail.getTitle(), mail.getContent(), false);
+            messageService.updateStatus(correlationId, Constant.MessageStatus.CONSUMERED);
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
             // 如果发送邮件失败, 返回到队列中.
