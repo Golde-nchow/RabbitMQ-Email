@@ -83,6 +83,21 @@
       <artifactId>lombok</artifactId>
       <version>1.18.8</version>
     </dependency>
+
+    <!-- 注解所需 START-->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+      <version>1.9.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.9.0</version>
+    </dependency>
+    <!-- 注解所需 END-->
+
   </dependencies>
 
   <build>
